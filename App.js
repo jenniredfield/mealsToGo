@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
-  Map: "md-map",
+  Maps: "md-map",
   Settings: "md-settings",
 };
 
