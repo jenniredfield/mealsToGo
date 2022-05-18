@@ -14,7 +14,8 @@ import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { MapsScreen } from "./src/screens/maps.screen";
 import { SettingsScreen } from "./src/screens/settings.screen";
 import { Ionicons } from "@expo/vector-icons";
-import { ContextProvider } from "./src/services/restaurants/restaurants.context";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -54,20 +55,22 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator screenOptions={createScreenOptions}>
-              <Tab.Screen
-                name="Restaurants"
-                component={RestaurantsScreen}
-                options={{ header: () => null }}
-              />
-              <Tab.Screen name="Maps" component={MapsScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-          <ExpoStatusBar />
-        </ContextProvider>
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator screenOptions={createScreenOptions}>
+                <Tab.Screen
+                  name="Restaurants"
+                  component={RestaurantsScreen}
+                  options={{ header: () => null }}
+                />
+                <Tab.Screen name="Maps" component={MapsScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+            <ExpoStatusBar />
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
     </>
   );
